@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException
 from sqlmodel import Session, select
 
 from api.database import SessionDep
@@ -76,3 +76,25 @@ async def atualizar_contato(
     session.commit()
     session.refresh(contato_obj)
     return contato_obj
+
+@router.delete("/contatos/{contato_id}")
+async def deletar_contato(
+    *,
+    contato_id: int,
+    session: Session = SessionDep,
+):
+    """Deleta um contato existente"""
+    
+    contato_obj = session.get(Contato, contato_id)
+    
+    # Verifica se o contato existe
+    if not contato_obj:
+        raise HTTPException(
+            status_code=404,
+            detail="Contato não encontrado.",
+        )
+    
+    session.delete(contato_obj)
+    session.commit()
+    
+    return {"detail": "Contato deletado com sucesso."}
