@@ -19,4 +19,4 @@ def on_shutdown():
     pass
 
 # Inclui as rotas no app
-app.include_router(router)
+app.include_router(router, tags=["contatos"])
