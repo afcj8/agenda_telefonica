@@ -7,7 +7,7 @@ from api.serializers import ContatoResponse, ContatoRequest
 
 router = APIRouter()
 
-@router.get("/contatos", response_model=list[ContatoResponse])
+@router.get("", response_model=list[ContatoResponse])
 async def listar_contatos(
     *,
     session: Session = SessionDep,
@@ -16,7 +16,7 @@ async def listar_contatos(
     contatos = session.exec(select(Contato)).all()
     return contatos
 
-@router.post("/contatos", response_model=ContatoResponse, status_code=201)
+@router.post("", response_model=ContatoResponse, status_code=201)
 async def criar_contato(
     *,
     contato: ContatoRequest,
@@ -40,7 +40,7 @@ async def criar_contato(
     session.refresh(contato_obj)
     return contato_obj
 
-@router.patch("/contatos/{contato_id}", response_model=ContatoResponse, status_code=200)
+@router.patch("/{contato_id}", response_model=ContatoResponse, status_code=200)
 async def atualizar_contato(
     *,
     contato_id: int,
@@ -77,7 +77,7 @@ async def atualizar_contato(
     session.refresh(contato_obj)
     return contato_obj
 
-@router.delete("/contatos/{contato_id}")
+@router.delete("/{contato_id}")
 async def deletar_contato(
     *,
     contato_id: int,
