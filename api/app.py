@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from api.database import create_db_and_tables
-from api.routes import router
+from .routes import main_router
 
 def lifespan(app: FastAPI):
     """Função de ciclo de vida da aplicação."""
@@ -19,4 +19,4 @@ app = FastAPI(
 )
 
 # Inclui as rotas no app
-app.include_router(router, tags=["contatos"])
+app.include_router(main_router)
