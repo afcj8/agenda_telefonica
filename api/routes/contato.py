@@ -2,8 +2,8 @@ from fastapi import APIRouter, HTTPException
 from sqlmodel import Session, select
 
 from api.database import SessionDep
-from api.models import Contato
-from api.serializers import ContatoResponse, ContatoRequest
+from api.models.contato import Contato
+from api.serializers.contato import ContatoResponse, ContatoRequest
 
 router = APIRouter()
 
